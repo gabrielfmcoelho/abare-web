@@ -9,8 +9,8 @@ import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, Di
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton"
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faFileAlt, faCommentDots, faClock } from '@fortawesome/free-solid-svg-icons';
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -64,12 +64,20 @@ export default function Home() {
     <main className="flex flex-col lg:flex-row items-center justify-center w-full h-full bg-slate-100">
       <div className="flex flex-col items-center justify-center w-full lg:w-1/2 h-screen lg:space-y-4 bg-white">
         <div className="w-full h-1/6 pl-4 pt-4 justify-center flex flex-col items-center lg:items-start">
-          <Skeleton className="w-[200px] h-[100px] rounded-md" />
+        <img
+            src="/logo_abare_deitado.png"
+            alt="Abare Deitado"
+            className="w-[400px] h-[250px] rounded-md"
+          />
         </div>
         <div className="w-full h-4/6 pl-4 flex flex-col items-center justify-evenly">
           <div className="flex flex-row items-center justify-center space-x-4">
-            <Skeleton className="w-[50px] h-[50px] rounded-md" />
-            <h1 className="text-3xl font-bold">
+          <img
+            src="/abare_gravata.png"
+            alt="Abare Gravata"
+            className="w-[100px] h-[100px] rounded-md"
+          />
+            <h1 className="text-3xl font-bold text-teal-200" style={{ fontFamily: '"Gill Sans", sans-serif' }}>
               Abaré
             </h1>
           </div>
@@ -78,25 +86,25 @@ export default function Home() {
           </p>
           <div className="grid grid-cols-2 gap-8">
             <div className="flex flex-row items-center justify-center space-x-4">
-              <Skeleton className="w-[20px] h-[20px] rounded-md" />
+            <FontAwesomeIcon icon={faEye} className="text-teal-200 w-5 h-5" />
               <p className="font-semibold text-sm">
                 Monitoramento em tempo real
               </p>
             </div>
             <div className="flex flex-row items-center justify-center space-x-4">
-              <Skeleton className="w-[20px] h-[20px] rounded-md" />
+              <FontAwesomeIcon icon={faFileAlt} className="text-teal-200 w-5 h-5" />
               <p className="font-semibold text-sm">
                 Relatórios personalizados
               </p>
             </div>
             <div className="flex flex-row items-center justify-center space-x-4">
-              <Skeleton className="w-[20px] h-[20px] rounded-md" />
+              <FontAwesomeIcon icon={faCommentDots} className="text-teal-200 w-5 h-5" />
               <p className="font-semibold text-sm">
                 Comunicação facilitada
               </p>
             </div>
             <div className="flex flex-row items-center justify-center space-x-4">
-              <Skeleton className="w-[20px] h-[20px] rounded-md" />
+              <FontAwesomeIcon icon={faClock} className="text-teal-200 w-5 h-5" />
               <p className="font-semibold text-sm">
                 Acesso a qualquer momento
               </p>
@@ -106,7 +114,7 @@ export default function Home() {
         <div className="w-full h-1/6 pl-4 pb-4 flex flex-col items-center lg:items-start justify-center lg:justify-end text-sm">
           <p>
             Potencializado por
-            <span className="font-semibold"> InovaICEV </span>
+            <span className="font-semibold"> Abaré </span>
           </p>
           <p>
             © Copyrights 2020 | 
@@ -180,7 +188,7 @@ export default function Home() {
                 />
               </CardContent>
               <CardFooter className="flex flex-col space-y-4">
-                  <Button type="submit" className="flex flex-row w-full">
+                  <Button type="submit" className="flex flex-row w-full bg-teal-200 text-white hover:bg-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-75 transition duration-200 ease-in-out rounded-md p-2">
                     <LogIn size={18} className="mr-2" />
                     <p>Autenticar</p>
                   </Button>
