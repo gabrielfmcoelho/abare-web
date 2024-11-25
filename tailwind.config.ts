@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss"
+const colors = require("tailwindcss/colors")
 
 const config = {
   darkMode: ["class"],
@@ -11,7 +12,7 @@ const config = {
   prefix: "",
   theme: {
   	container: {
-  		center: 'true',
+  		center: true,
   		padding: '2rem',
   		screens: {
   			'2xl': '1400px'
@@ -19,6 +20,14 @@ const config = {
   	},
   	extend: {
   		colors: {
+			abare: {
+				'primary': '#23a4c5',
+				'secondary': '#0f427d',
+				'brown': '#7d4725',
+				'gray-backgroud': '#d7d8d8',
+				'green': colors.green['500'],
+				'orange': colors.orange['500']
+			},
   			border: 'hsl(var(--border))',
   			input: 'hsl(var(--input))',
   			ring: 'hsl(var(--ring))',
@@ -92,7 +101,10 @@ const config = {
   		}
   	}
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+	require("tailwindcss-animate"),
+	require('@tailwindcss/line-clamp'),
+],
 } satisfies Config
 
 export default config

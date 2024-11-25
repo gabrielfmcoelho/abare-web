@@ -53,6 +53,8 @@ import { Textarea } from "./ui/textarea"
 import { DialogClose } from "@radix-ui/react-dialog"
 import { ToastAction } from "@/components/ui/toast"
 import { useToast } from "@/hooks/use-toast"
+import { TEXT as PlataformText } from "@/app/plataforma/texts"
+import Image from "next/image"
 
 // This is sample data.
 const data = {
@@ -75,6 +77,15 @@ const data = {
       items: ["Familia", "Escola", "Externo"]
     },
   ],
+  diaries: [
+    {
+      title: "Acontecimento Inesperado",
+      date: "21 de novembro 2024",
+      patient: "José Lucas Lucena",
+      tags: ["Escola", "Crise"],
+      annotation: "Aconteceu algo inesperado com o paciente, ele teve uma crise de ansiedade durante a aula de matemática.",
+    },
+  ]
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -97,13 +108,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
       <SidebarHeader className="h-16 border-b border-sidebar-border">
-        <NavUser user={data.user} />
+        <a className="flex flex-row items-center justify-start space-x-1">
+          <Image src={PlataformText.SidebarHeader.logoSrc} alt={PlataformText.SidebarHeader.logoAlt} width={50} height={50} />
+          <h1 className="text-3xl font-extrabold text-abare-primary">{PlataformText.SidebarHeader.title}</h1>
+        </a>
       </SidebarHeader>
       <SidebarContent>
         <DatePicker />
         <Dialog>
           <DialogTrigger asChild className="mx-auto">
-            <Button className='w-10/12 mb-4'>
+            <Button className='w-10/12 mb-4 bg-abare-primary hover:bg-abare-secondary'>
               <Plus />
               Novo Diário
             </Button>
@@ -216,6 +230,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
+            <NavUser user={data.user} />
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
