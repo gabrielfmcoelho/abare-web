@@ -105,8 +105,10 @@ const DiaryModal: React.FC<DiaryModalProps> = ({ diary, isOpen, onClose }) => {
 
           {/* Right Side: Replies */}
           <div className="space-y-4">
-            
-            <h3 className="text-lg font-semibold">Respostas</h3>
+            <div className="flex flex-row space-x-2 items-center">
+              <Ribbon size={15} />
+              <h3 className="text-lg font-semibold">Respostas</h3>
+            </div>
             {diary.replies.length === 0 ? (
               <p className="text-gray-500">Nenhuma resposta disponível.</p>
             ) : (
