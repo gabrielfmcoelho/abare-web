@@ -14,7 +14,12 @@ import {
 } from "@/components/ui/dialog"; // Adjust the import path based on your project structure
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { X } from "lucide-react";
+import { 
+    Notebook,
+    User,
+    Ribbon,
+    Handshake,
+} from "lucide-react";
 import { format } from "date-fns";
 import { Diary } from "@/types";
 import {Spinner} from "@nextui-org/spinner";
@@ -60,12 +65,28 @@ const DiaryModal: React.FC<DiaryModalProps> = ({ diary, isOpen, onClose }) => {
         <div className="mt-2 grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Left Side: Diary Information */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold">
-                Acompanhado
-                <p className="text-base font-normal text-gray-600">
-                    {diary.patient}
-                </p>
-            </h3>
+            {/* row gird */}
+            <div className="grid gap-2 grid-flow-col"> 
+                <h3 className="text-lg font-semibold">
+                    <div className="flex flex-row space-x-2 items-center">
+                        <User size={15} />
+                        <span>Acompanhado</span>
+                    </div>
+                    <p className="text-base font-normal text-gray-600">
+                        {diary.patient}
+                    </p>
+                </h3>
+                <h3 className="text-lg font-semibold">
+                    <div className="flex flex-row space-x-2 items-center">
+                        <Handshake size={15} />
+                        <span>Responsável</span>
+                    </div>
+                    <p className="text-base font-normal text-gray-600">
+                        {diary.patient}
+                    </p>
+                </h3>   
+            </div>
+            
             <div className="flex flex-wrap gap-2">
               {diary.tags.map((tag, idx) => (
                 <Badge key={idx} variant="outline">
@@ -74,7 +95,10 @@ const DiaryModal: React.FC<DiaryModalProps> = ({ diary, isOpen, onClose }) => {
               ))}
             </div>
             <div>
-              <h3 className="text-lg font-semibold">Anotação</h3>
+              <div className="flex flex-row space-x-2 items-center">
+                <Notebook size={15} />
+                <h3 className="text-lg font-semibold">Anotação</h3>
+              </div>
               <p className="text-gray-600">{diary.annotation}</p>
             </div>
           </div>
