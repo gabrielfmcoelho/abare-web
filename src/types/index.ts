@@ -5,7 +5,7 @@ export interface Reply {
     date: string; // ISO date string
   }
   
-  export interface Diary {
+export interface Diary {
     id: number;
     title: string;
     author: string;
