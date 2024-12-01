@@ -2,7 +2,8 @@
 
 import React, { useState } from "react";
 import { Badge } from "@/components/ui/badge"; // Assuming you have a Tag component
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
+import { ptBR } from "date-fns/locale";
 import { Diary } from "@/types";
 
 interface DiaryCardProps {
@@ -37,7 +38,13 @@ const DiaryCard: React.FC<DiaryCardProps> = ({ diary, onClick }) => {
                     <Badge variant={"outline"}>{diary.replies?.length ?? 0}</Badge>
                 </div>
                 <p className="text-sm text-gray-500">
-                    {format(new Date(diary.date), "dd 'de' MMMM yyyy")}
+                    {
+                        format(
+                            parseISO(diary.date),
+                            "dd 'de' MMMM yyyy", 
+                            { locale: ptBR }
+                        )
+                    }
                     <br />
                     {diary.author && (
                         <span>{diary.author}</span>
@@ -48,7 +55,7 @@ const DiaryCard: React.FC<DiaryCardProps> = ({ diary, onClick }) => {
                 </p>
                 <div className="mt-2 flex flex-wrap gap-2">
                     {diary.tags.map((tag, idx) => (
-                        <Badge key={idx} variant={"outline"}>{tag}</Badge>
+                        <Badge key={idx} variant={"outline"}>{tag.name}</Badge>
                     ))}
                 </div>
                 <p className={`mt-4 text-gray-600 ${isTruncated ? "line-clamp-3" : ""}`}>{diary.annotation}</p>

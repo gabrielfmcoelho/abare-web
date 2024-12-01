@@ -1,6 +1,36 @@
 // src/data/diaries.ts
 
-import { Diary } from "@/types";
+import { 
+  Diary,
+  Tag
+} from "@/types";
+
+const tagAnxiety: Tag = {
+  id: 1,
+  group: "Tags",
+  name: "Ansiedade"
+};
+
+const tagSchool: Tag = {
+  id: 2,
+  group: "Ambientes",
+  name: "Escola"
+};
+
+export const calendars = [
+  {
+    name: 'Tags',
+    items: ['Crise', 'Gostos', 'Desgostos', 'Desenvolvimento', 'Atenção', 'Saúde', 'Ansiedade']
+  },
+  {
+    name: "Acompanhados",
+    items: ['José Lucas Lucena', 'Samuel Martins', 'Lucas Vinicius', 'Maria Cecilia Almeida'],
+  },
+  {
+    name: "Ambientes",
+    items: ["Familiar", "Escola", "Externo"]
+  },
+]
 
 export const diaries: Diary[] = [
   {
@@ -9,7 +39,10 @@ export const diaries: Diary[] = [
     author: "Drª. Layse Policarpo",
     date: "2024-11-21",
     patient: "José Lucas Lucena",
-    tags: ["Escola", "Crise"],
+    tags: [
+      tagAnxiety,
+      tagSchool,
+    ],
     annotation:
       "Aconteceu algo inesperado com o paciente, ele teve uma crise de ansiedade durante a aula de matemática.",
     replies: [

@@ -90,7 +90,7 @@ const DiaryModal: React.FC<DiaryModalProps> = ({ diary, isOpen, onClose }) => {
             <div className="flex flex-wrap gap-2">
               {diary.tags.map((tag, idx) => (
                 <Badge key={idx} variant="outline">
-                  {tag}
+                  {tag.name}
                 </Badge>
               ))}
             </div>

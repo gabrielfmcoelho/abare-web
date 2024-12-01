@@ -55,40 +55,15 @@ import { ToastAction } from "@/components/ui/toast"
 import { useToast } from "@/hooks/use-toast"
 import { TEXT as PlataformText } from "@/app/plataforma/texts"
 import Image from "next/image"
+import { CurrentDemoUser } from "@/data/user";
 
-// This is sample data.
-const data = {
-  user: {
-    name: "Layse Policarpo",
-    email: "laysepolicarpo@abare.tech",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  calendars: [
-    {
-      name: 'Tags',
-      items: ['Escola', 'Casa', 'Crise', 'Gostos', 'Desgostos', 'Desenvolvimento', 'Atenção', 'Medico'],
-    },
-    {
-      name: "Acompanhados",
-      items: ['José Lucas Lucena', 'Samuel Martins', 'Lucas Vinicius', 'Maria Cecilia Almeida'],
-    },
-    {
-      name: "Ambientes",
-      items: ["Familia", "Escola", "Externo"]
-    },
-  ],
-  diaries: [
-    {
-      title: "Acontecimento Inesperado",
-      date: "21 de novembro 2024",
-      patient: "José Lucas Lucena",
-      tags: ["Escola", "Crise"],
-      annotation: "Aconteceu algo inesperado com o paciente, ele teve uma crise de ansiedade durante a aula de matemática.",
-    },
-  ]
-}
-
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({
+  onTagsChange,
+  selectedDate,
+  onDateChange,
+  calendarsData,
+  ...props
+}: React.ComponentProps<typeof Sidebar> & { onTagsChange?: (tags: string[]) => void } & { selectedDate?: Date | undefined } & { onDateChange: (date: Date | undefined) => void } & { calendarsData: { name: string; items: string[] }[] }) {
   const [openPatientPopover, setOpenPatientPopover] = React.useState(false)
   const [selectedPatient, setSelectedPatient] = React.useState<string | null>(null)
   const [diarySelectedDate, setDiarySelectedDate] = React.useState<Date>()
@@ -113,8 +88,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <h1 className="text-3xl font-extrabold text-abare-primary">{PlataformText.SidebarHeader.title}</h1>
         </a>
       </SidebarHeader>
-      <SidebarContent>
-        <DatePicker />
+      <SidebarContent className="overflow-y-auto">
+        <DatePicker selectedDate={selectedDate} onSelectDate={onDateChange} />
         <Dialog>
           <DialogTrigger asChild className="mx-auto">
             <Button className='w-10/12 mb-4 bg-abare-primary hover:bg-abare-secondary'>
@@ -168,7 +143,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                         <CommandList>
                           <CommandEmpty>Nenhum resultado encontrado</CommandEmpty>
                           <CommandGroup>
-                            {data.calendars[1].items.map((patientName) => 
+                            {calendarsData[1].items.map((patientName) => 
                               <CommandItem
                                 key={patientName}
                                 value={patientName}
@@ -225,12 +200,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </DialogContent>
         </Dialog>
         <SidebarSeparator className="mx-0" />
-        <Calendars calendars={data.calendars} />
+        <Calendars calendars={calendarsData} onTagsChange={onTagsChange} />
       </SidebarContent>
+      <SidebarSeparator className="mx-0" />
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <NavUser user={data.user} />
+            <NavUser user={CurrentDemoUser} />
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>

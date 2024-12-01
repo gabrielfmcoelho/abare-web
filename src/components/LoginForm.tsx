@@ -15,6 +15,8 @@ import { useEffect, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { TEXT } from "@/app/texts";
+import { CurrentUser } from "@/types";
+import { CurrentDemoUser } from "@/data/user";
 
 const formSchema = z.object({
   email: z.string({
@@ -40,14 +42,25 @@ const LoginForm: React.FC = () => {
   useEffect(() => {
     const checkHealth = async () => {
       try {
-        const response = await fetch("https://127.0.0.1:8080/health");
+        console.log("Checking health...");
+        const response = await fetch("https://127.0.0.1:8080/api/health");
+        console.log(response);
         if (response.ok) {
           setSystemStatus({ online: true, loading: false });
         } else {
-          setSystemStatus({ online: false, loading: false });
+          const data = await response.json();
+          throw new Error(data.message || "Erro desconhecido");
         }
       } catch (error) {
         setSystemStatus({ online: false, loading: false });
+        toast({
+          title: TEXT.loginForm.errorTitle,
+          description: "Iniciando modo demo offline.",
+          variant: "destructive",
+          action: <ToastAction altText="Ok">Entendo</ToastAction>,
+        });
+        form.setValue("email", CurrentDemoUser.email);
+        form.setValue("password", CurrentDemoUser.password);
       }
     };
 
@@ -77,9 +90,11 @@ const LoginForm: React.FC = () => {
       const errorMessage = error.message || "Error de comunicação com servidor";
       toast({
         title: TEXT.loginForm.errorTitle,
-        description: errorMessage,
-        action: <ToastAction altText="ok">Ok</ToastAction>,
+        description: "Acessando plataforma em modo demo offline.",
+        variant: "destructive",
+        action: <ToastAction altText="ok">OK</ToastAction>,
       });
+      window.location.href = TEXT.loginForm.successRedirect;
     }
   };
 
